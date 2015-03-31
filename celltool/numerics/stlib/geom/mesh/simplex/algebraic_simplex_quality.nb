@@ -1,0 +1,477 @@
+(************** Content-type: application/mathematica **************
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used with any Mathematica-compatible
+application, such as Mathematica, MathReader or Publicon. The data
+for the notebook starts with the line containing stars above.
+
+To get the notebook into a Mathematica-compatible application, do
+one of the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the
+  application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing
+the word CacheID, otherwise Mathematica-compatible applications may
+try to use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+*******************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[      9847,        334]*)
+(*NotebookOutlinePosition[     10801,        364]*)
+(*  CellTagsIndexPosition[     10757,        360]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Algebraic Quality measures for Simplices", "Title"],
+
+Cell[CellGroupData[{
+
+Cell["2-D", "Section"],
+
+Cell[BoxData[
+    \(\(a = {{x1 - x, x2 - x}, {y1 - y, y2 - y}};\)\)], "Input"],
+
+Cell[BoxData[
+    \(\(wi = {{1, \(-\@3\)/3}, {0, 2 \@ 3/3}};\)\)], "Input"],
+
+Cell[BoxData[
+    \(\(jac = a . wi;\)\)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(\(jac // Simplify\) // MatrixForm\)], "Input"],
+
+Cell[BoxData[
+    TagBox[
+      RowBox[{"(", "\[NoBreak]", GridBox[{
+            {\(\(-x\) + x1\), \(-\(\(x + x1 - 2\ x2\)\/\@3\)\)},
+            {\(\(-y\) + y1\), \(-\(\(y + y1 - 2\ y2\)\/\@3\)\)}
+            }], "\[NoBreak]", ")"}],
+      Function[ BoxForm`e$, 
+        MatrixForm[ BoxForm`e$]]]], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(rules = 
+      Solve[{j00 \[Equal] jac[\([1, 1]\)], j01 \[Equal] jac[\([1, 2]\)], 
+          j10 \[Equal] jac[\([2, 1]\)], j11 \[Equal] jac[\([2, 2]\)]}, {x1, 
+          x2, y1, y2}]\)], "Input"],
+
+Cell[BoxData[
+    \({{x2 \[Rule] 1\/2\ \((j00 + \@3\ j01 + 2\ x)\), 
+        y2 \[Rule] 1\/2\ \((j10 + \@3\ j11 + 2\ y)\), x1 \[Rule] j00 + x, 
+        y1 \[Rule] j10 + y}}\)], "Output"]
+}, Open  ]],
+
+Cell[BoxData[
+    \(\(\[Sigma] = Det[jac];\)\)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(D[\[Sigma], x] // Simplify\)], "Input"],
+
+Cell[BoxData[
+    \(\(2\ \((y1 - y2)\)\)\/\@3\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(D[\[Sigma], y] // Simplify\)], "Input"],
+
+Cell[BoxData[
+    \(\(2\ \((\(-x1\) + x2)\)\)\/\@3\)], "Output"]
+}, Open  ]],
+
+Cell[BoxData[
+    \(\(adj = Simplify[Det[jac] Inverse[jac]];\)\)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(adj // MatrixForm\)], "Input"],
+
+Cell[BoxData[
+    TagBox[
+      RowBox[{"(", "\[NoBreak]", GridBox[{
+            {\(-\(\(y + y1 - 2\ y2\)\/\@3\)\), \(\(x + x1 - 2\ x2\)\/\@3\)},
+            {\(y - y1\), \(\(-x\) + x1\)}
+            }], "\[NoBreak]", ")"}],
+      Function[ BoxForm`e$, 
+        MatrixForm[ BoxForm`e$]]]], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(D[adj, x] // MatrixForm\)], "Input"],
+
+Cell[BoxData[
+    TagBox[
+      RowBox[{"(", "\[NoBreak]", GridBox[{
+            {"0", \(1\/\@3\)},
+            {"0", \(-1\)}
+            }], "\[NoBreak]", ")"}],
+      Function[ BoxForm`e$, 
+        MatrixForm[ BoxForm`e$]]]], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(D[adj, y] // MatrixForm\)], "Input"],
+
+Cell[BoxData[
+    TagBox[
+      RowBox[{"(", "\[NoBreak]", GridBox[{
+            {\(-\(1\/\@3\)\), "0"},
+            {"1", "0"}
+            }], "\[NoBreak]", ")"}],
+      Function[ BoxForm`e$, 
+        MatrixForm[ BoxForm`e$]]]], "Output"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["3-D", "Section"],
+
+Cell[BoxData[
+    \(\(a = {{x1 - x, x2 - x, x3 - x}, {y1 - y, y2 - y, y3 - y}, {z1 - z, 
+            z2 - z, z3 - z}};\)\)], "Input"],
+
+Cell[BoxData[
+    \(\(wi = {{1, \(-\@3\)/3, \(-\@6\)/6}, {0, 2 \@ 3/3, \(-\@6\)/6}, {0, 
+            0, \@6/2}};\)\)], "Input"],
+
+Cell[BoxData[
+    \(\(jac = Simplify[a . wi];\)\)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(jac // MatrixForm\)], "Input"],
+
+Cell[BoxData[
+    TagBox[
+      RowBox[{"(", "\[NoBreak]", GridBox[{
+            {\(\(-x\) + 
+                x1\), \(-\(\(x + x1 - 2\ x2\)\/\@3\)\), \(-\(\(x + x1 + x2 - 
+                      3\ x3\)\/\@6\)\)},
+            {\(\(-y\) + 
+                y1\), \(-\(\(y + y1 - 2\ y2\)\/\@3\)\), \(-\(\(y + y1 + y2 - 
+                      3\ y3\)\/\@6\)\)},
+            {\(\(-z\) + 
+                z1\), \(-\(\(z + z1 - 2\ z2\)\/\@3\)\), \(-\(\(z + z1 + z2 - 
+                      3\ z3\)\/\@6\)\)}
+            }], "\[NoBreak]", ")"}],
+      Function[ BoxForm`e$, 
+        MatrixForm[ BoxForm`e$]]]], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(rules = 
+      First[Solve[{j00 \[Equal] jac[\([1, 1]\)], 
+            j01 \[Equal] jac[\([1, 2]\)], j02 \[Equal] jac[\([1, 3]\)], 
+            j10 \[Equal] jac[\([2, 1]\)], j11 \[Equal] jac[\([2, 2]\)], 
+            j12 \[Equal] jac[\([2, 3]\)], j20 \[Equal] jac[\([3, 1]\)], 
+            j21 \[Equal] jac[\([3, 2]\)], j22 \[Equal] jac[\([3, 3]\)]}, {x1, 
+            x2, x3, y1, y2, y3, z1, z2, z3}]]\)], "Input"],
+
+Cell[BoxData[
+    \({x3 \[Rule] 1\/6\ \((3\ j00 + \@3\ j01 + 2\ \@6\ j02 + 6\ x)\), 
+      y3 \[Rule] 1\/6\ \((3\ j10 + \@3\ j11 + 2\ \@6\ j12 + 6\ y)\), 
+      z3 \[Rule] 1\/6\ \((3\ j20 + \@3\ j21 + 2\ \@6\ j22 + 6\ z)\), 
+      x2 \[Rule] 1\/2\ \((j00 + \@3\ j01 + 2\ x)\), 
+      y2 \[Rule] 1\/2\ \((j10 + \@3\ j11 + 2\ y)\), 
+      z2 \[Rule] 1\/2\ \((j20 + \@3\ j21 + 2\ z)\), x1 \[Rule] j00 + x, 
+      y1 \[Rule] j10 + y, z1 \[Rule] j20 + z}\)], "Output"]
+}, Open  ]],
+
+Cell[BoxData[
+    \(\(\[Sigma] = Simplify[Det[jac]];\)\)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(D[\[Sigma], x] // Simplify\)], "Input"],
+
+Cell[BoxData[
+    \(\@2\ \((y3\ \((\(-z1\) + z2)\) + y2\ \((z1 - z3)\) + 
+          y1\ \((\(-z2\) + z3)\))\)\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(D[\[Sigma], y] // Simplify\)], "Input"],
+
+Cell[BoxData[
+    \(\@2\ \((x3\ \((z1 - z2)\) + x1\ \((z2 - z3)\) + 
+          x2\ \((\(-z1\) + z3)\))\)\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(D[\[Sigma], z] // Simplify\)], "Input"],
+
+Cell[BoxData[
+    \(\@2\ \((x3\ \((\(-y1\) + y2)\) + x2\ \((y1 - y3)\) + 
+          x1\ \((\(-y2\) + y3)\))\)\)], "Output"]
+}, Open  ]],
+
+Cell[BoxData[
+    \(\(adj = Simplify[Det[jac] Inverse[jac]];\)\)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(adj\)], "Input"],
+
+Cell[BoxData[
+    \({{\(y3\ \((z + z1 - 2\ z2)\) - y2\ \((z + z1 - 2\ z3)\) + \((y + y1)\)\ \
+\((z2 - z3)\)\)\/\@2, \(\(-x3\)\ \((z + z1 - 2\ z2)\) + x2\ \((z + z1 - 2\ \
+z3)\) - \((x + x1)\)\ \((z2 - z3)\)\)\/\@2, \(x3\ \((y + y1 - 2\ y2)\) - x2\ \
+\((y + y1 - 2\ y3)\) + \((x + x1)\)\ \((y2 - y3)\)\)\/\@2}, {\(\((y + y1 + y2 \
+- 3\ y3)\)\ \((z - z1)\) + \((\(-y\) + y1)\)\ \((z + z1 + z2 - 3\ \
+z3)\)\)\/\@6, \(\((x + x1 + x2 - 3\ x3)\)\ \((\(-z\) + z1)\) + \((x - x1)\)\ \
+\((z + z1 + z2 - 3\ z3)\)\)\/\@6, \(\((x + x1 + x2 - 3\ x3)\)\ \((y - y1)\) + \
+\((\(-x\) + x1)\)\ \((y + y1 + y2 - 3\ y3)\)\)\/\@6}, {\(2\ \((y2\ \((z - z1)\
+\) + y\ \((z1 - z2)\) + y1\ \((\(-z\) + z2)\))\)\)\/\@3, \(2\ \((x2\ \
+\((\(-z\) + z1)\) + x1\ \((z - z2)\) + x\ \((\(-z1\) + z2)\))\)\)\/\@3, \(2\ \
+\((x2\ \((y - y1)\) + x\ \((y1 - y2)\) + x1\ \((\(-y\) + \
+y2)\))\)\)\/\@3}}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(\(D[adj, x] /. rules // Simplify\) // MatrixForm\)], "Input"],
+
+Cell[BoxData[
+    TagBox[
+      RowBox[{"(", "\[NoBreak]", GridBox[{
+            {
+              "0", \(\(-\(j21\/\@6\)\) + 
+                j22\/\@3\), \(\(j11 - \@2\ j12\)\/\@6\)},
+            {"0", \(j20\/\@6 - j22\), \(\(-\(j10\/\@6\)\) + j12\)},
+            {"0", \(\(-\(j20\/\@3\)\) + j21\), \(j10\/\@3 - j11\)}
+            }], "\[NoBreak]", ")"}],
+      Function[ BoxForm`e$, 
+        MatrixForm[ BoxForm`e$]]]], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(\(D[adj, y] /. rules // Simplify\) // MatrixForm\)], "Input"],
+
+Cell[BoxData[
+    TagBox[
+      RowBox[{"(", "\[NoBreak]", GridBox[{
+            {\(\(j21 - \@2\ j22\)\/\@6\), 
+              "0", \(\(-\(j01\/\@6\)\) + j02\/\@3\)},
+            {\(\(-\(j20\/\@6\)\) + j22\), "0", \(j00\/\@6 - j02\)},
+            {\(j20\/\@3 - j21\), "0", \(\(-\(j00\/\@3\)\) + j01\)}
+            }], "\[NoBreak]", ")"}],
+      Function[ BoxForm`e$, 
+        MatrixForm[ BoxForm`e$]]]], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(\(D[adj, z] /. rules // Simplify\) // MatrixForm\)], "Input"],
+
+Cell[BoxData[
+    TagBox[
+      RowBox[{"(", "\[NoBreak]", GridBox[{
+            {\(\(-\(j11\/\@6\)\) + j12\/\@3\), \(\(j01 - \@2\ j02\)\/\@6\), 
+              "0"},
+            {\(j10\/\@6 - j12\), \(\(-\(j00\/\@6\)\) + j02\), "0"},
+            {\(\(-\(j10\/\@3\)\) + j11\), \(j00\/\@3 - j01\), "0"}
+            }], "\[NoBreak]", ")"}],
+      Function[ BoxForm`e$, 
+        MatrixForm[ BoxForm`e$]]]], "Output"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+},
+FrontEndVersion->"4.1 for X",
+ScreenRectangle->{{0, 1152}, {0, 900}},
+WindowSize->{964, 849},
+WindowMargins->{{80, Automatic}, {1, Automatic}},
+PrintingCopies->1,
+PrintingPageRange->{Automatic, Automatic},
+PrintingOptions->{"PaperSize"->{612, 792},
+"PaperOrientation"->"Portrait",
+"PostScriptOutputFile":>FrontEnd`FileName[{$RootDirectory, "home", "sean"}, \
+"algebraic_simplex_quality.nb.ps", CharacterEncoding -> "ISO8859-1"],
+"Magnification"->1},
+Magnification->1.5
+]
+
+(*******************************************************************
+Cached data follows.  If you edit this Notebook file directly, not
+using Mathematica, you must remove the line containing CacheID at
+the top of  the file.  The cache data will then be recreated when
+you save this file from within Mathematica.
+*******************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[1727, 52, 57, 0, 268, "Title"],
+
+Cell[CellGroupData[{
+Cell[1809, 56, 22, 0, 87, "Section"],
+Cell[1834, 58, 78, 1, 39, "Input"],
+Cell[1915, 61, 75, 1, 58, "Input"],
+Cell[1993, 64, 50, 1, 39, "Input"],
+
+Cell[CellGroupData[{
+Cell[2068, 69, 66, 1, 39, "Input"],
+Cell[2137, 72, 309, 7, 111, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[2483, 84, 215, 4, 62, "Input"],
+Cell[2701, 90, 186, 3, 108, "Output"]
+}, Open  ]],
+Cell[2902, 96, 57, 1, 39, "Input"],
+
+Cell[CellGroupData[{
+Cell[2984, 101, 59, 1, 39, "Input"],
+Cell[3046, 104, 59, 1, 66, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[3142, 110, 59, 1, 39, "Input"],
+Cell[3204, 113, 64, 1, 66, "Output"]
+}, Open  ]],
+Cell[3283, 117, 75, 1, 39, "Input"],
+
+Cell[CellGroupData[{
+Cell[3383, 122, 50, 1, 39, "Input"],
+Cell[3436, 125, 299, 7, 97, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[3772, 137, 56, 1, 39, "Input"],
+Cell[3831, 140, 237, 7, 95, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[4105, 152, 56, 1, 39, "Input"],
+Cell[4164, 155, 239, 7, 95, "Output"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[4452, 168, 22, 0, 87, "Section"],
+Cell[4477, 170, 133, 2, 39, "Input"],
+Cell[4613, 174, 127, 2, 58, "Input"],
+Cell[4743, 178, 60, 1, 39, "Input"],
+
+Cell[CellGroupData[{
+Cell[4828, 183, 50, 1, 39, "Input"],
+Cell[4881, 186, 611, 14, 151, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[5529, 205, 435, 7, 131, "Input"],
+Cell[5967, 214, 463, 7, 204, "Output"]
+}, Open  ]],
+Cell[6445, 224, 67, 1, 39, "Input"],
+
+Cell[CellGroupData[{
+Cell[6537, 229, 59, 1, 39, "Input"],
+Cell[6599, 232, 123, 2, 43, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[6759, 239, 59, 1, 39, "Input"],
+Cell[6821, 242, 118, 2, 43, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[6976, 249, 59, 1, 39, "Input"],
+Cell[7038, 252, 123, 2, 43, "Output"]
+}, Open  ]],
+Cell[7176, 257, 75, 1, 39, "Input"],
+
+Cell[CellGroupData[{
+Cell[7276, 262, 36, 1, 39, "Input"],
+Cell[7315, 265, 876, 12, 514, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[8228, 282, 81, 1, 39, "Input"],
+Cell[8312, 285, 429, 10, 157, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[8778, 300, 81, 1, 39, "Input"],
+Cell[8862, 303, 412, 9, 157, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[9311, 317, 81, 1, 39, "Input"],
+Cell[9395, 320, 412, 9, 157, "Output"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+
+
+(*******************************************************************
+End of Mathematica Notebook file.
+*******************************************************************)
+

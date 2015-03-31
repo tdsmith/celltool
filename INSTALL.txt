@@ -1,0 +1,51 @@
+Installation Instructions
+-------------------------
+
+Pre-requisites:
+  - Python 2.3 or later, a programming language and environment
+      (Python 2.3 is installed as part of Mac OS X and most Linux
+      distributions; see http://www.python.org )
+  - numpy, a numerical computing package for Python which provides array
+      manipulation and linear algebra. (Numpy 1.0.1 or better is required,
+      except for x86-64 machines running Linux, which will require numpy 1.0.2
+      when it is released, and the latest SVN checkout of numpy until then,
+ 			due to a bug in version 1.0.1. See http://scipy.org )
+  - Compilers for C, C++, and Fortran that are known to Numpy. This includes 
+      most common compilers, especially gcc, g++ and g77/gnufortran, which are
+      installed as part of the developer tools by most Linux distributions. On
+      OS X, you will have to explicitly install the latest version of the
+      Apple Developer Tools, which include gcc and g++, but not gfortran. (See
+      http://developer.apple.com/tools/download/ ) To obtain a version of
+      gfortran for OS X, go to http://hpc.sourceforge.net and download
+      gfortran-bin.tar.gz or gfortran-intel-bin.tar.gz (depending on whether
+      your machine has an intel chip).
+
+CellTool installation:
+  Linux: Run 
+      python setup.py install
+    as root from inside the top-level CellTool directory (the one containing
+    this README file) to build the CellTool suite and install the command-line
+    tool in the same location where python is installed.
+  Mac OS X: On OS X, python lives in a special "framework" directory, and as
+    such, by default the command-line tool will not be generally accessible.
+    Thus, you will need to run 
+      sudo python setup.py install --install-scripts=/usr/bin
+    from inside the top-level CellTool directory (the one containing this 
+    README file). Note that the 'sudo' command causes python to be run with
+    root privileges (required to install CellTool for all users) and thus
+    requires that your password be entered, and 
+    '--install-scripts=/usr/bin' causes the 'celltool' command-line program to
+    be installed as '/usr/bin/celltool', where it is accessible by default to
+    all users. Advanced users may prefer to install the 'celltool' script to
+    /usr/local/bin, provided that they have added that directory to the PATH.
+  Windows: Things should work with the gcc/g++/g77 compilers available from
+    the MinGW project (see http://www.mingw.org/ ).
+		The general command-line to build and install CellTool on Windows should
+		be something like:
+		  c:\path\to\python.exe setup.py config --compiler=mingw32 build 
+		    --compiler=mingw32 install
+    (split onto two lines here for formatting -- these should be on the same
+    line when you issue the command). Note that this has not been tested, and
+    I do not know where the 'celltool' script is installed in that case, or
+    precisely how to invoke it. Nevertheless, it should be possible to get 
+    CellTool running on Windows.

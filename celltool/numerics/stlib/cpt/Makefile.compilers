@@ -1,0 +1,69 @@
+# -*- Makefile -*-
+
+# CONTINUE
+# I put this in the cpt directory because the code does not work with 
+# the strict aliasing option when using GCC.
+
+# This makefile contains compiler-specific definitions.
+
+#CXXFLAGS += -pg
+#LINKERFLAGS += -pg
+
+CXX = g++
+CXXFLAGS += $(CXXINCLUDE)
+
+ifeq ($(CXX),g++)
+# Optimization
+CXXFLAGS += -O3 -funroll-loops
+#CXXFLAGS += -fstrict-aliasing
+#CXXFLAGS += -fast
+# Language.
+CXXFLAGS += -ansi -pedantic -Wall
+endif
+
+ifeq ($(CXX),g++-dp-4.2)
+# Optimization
+CXXFLAGS += -O3 -funroll-loops
+#CXXFLAGS += -fstrict-aliasing
+# Language.
+CXXFLAGS += -ansi -pedantic -Wall
+ifeq ($(OPENMP),yes)
+CXXFLAGS += -fopenmp
+LINKERFLAGS += -lgomp
+CXXINCLUDE += -I/opt/local/include/gcc42
+endif
+endif
+
+# IBM XL compiler.
+ifeq ($(CXX),xlC)
+# Optimization flags.
+CXXFLAGS += -qcache=auto -O3 -qstrict -qstrict_induction -qinline -qmaxmem=8192 -qansialias -qhot -qunroll=yes
+# I don't use RTTI in the code.
+#CXXFLAGS += -qrtti
+# CONTINUE: Can I detect the architecture?
+# Flags for Datastar.
+#CXXFLAGS += -qarch=pwr4 -qtune=pwr4 
+# Flags for uP.
+#CXXFLAGS += -qarch=pwr5 -qtune=pwr5
+endif
+
+# Intel compiler.
+ifeq ($(CXX),icc)
+CXXFLAGS += -O3 -Zp16 -ip -ansi_alias
+CXXFLAGS += -strict_ansi
+endif
+
+# PathScale compiler.
+ifeq ($(CXX),pathCC)
+CXXFLAGS += -O3 -INLINE:aggressive=ON -OPT:alias=typed
+CXXFLAGS += -ansi
+endif
+
+# PGI compiler.
+ifeq ($(CXX),pgCC)
+CXXFLAGS += -O3 -fastsse -Minline
+ifeq ($(OPENMP),yes)
+CXXFLAGS += -mp
+LINKERFLAGS += -lpgmp -lpgthread
+endif
+endif
