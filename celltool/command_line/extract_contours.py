@@ -57,7 +57,9 @@ parser.add_option('-v', '--contour-value', action='store', type='float', metavar
 parser.add_option('--min-area', action='store', type='float', metavar='AREA',
   help='minimum area for extracted contours; those smaller will be rejected [default: %default]')
 parser.add_option('--max-area', action='store', type='float', metavar='AREA',
-  help='maximum area for extracted contours; those larger will be rejected')  
+  help='maximum area for extracted contours; those larger will be rejected')
+parser.add_option('-r', '--roi', action='store_true',
+  help='filenames are ImageJ ROIs and not images')
 parser.add_option('-s', '--scale', action='store', type='float',
   help='size of one pixel in spatial units (if specified, contours will be scaled in terms of those units)')
 parser.add_option('-u', '--units', action='store',
@@ -78,8 +80,11 @@ def main(name, arguments):
   if len(args) == 0:
     raise ValueError('Some image files must be specified!')
   filenames = [path.path(arg) for arg in args]
-  contours_groups = simple_interface.extract_contours(filenames, options.contour_value, 
-    options.min_area, options.max_area, options.show_progress)
+  if options.roi:
+    contours_groups = simple_interface.extract_contours_from_rois(filenames, options.show_progress)
+  else:
+    contours_groups = simple_interface.extract_contours(filenames, options.contour_value,
+      options.min_area, options.max_area, options.show_progress)
   contours = []
   names = []
   destination = path.path(options.destination)

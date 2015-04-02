@@ -89,6 +89,35 @@ def extract_contours(filenames, contour_value = None, min_area = None, max_area 
     all_contours.append(contours)
   return all_contours
 
+def extract_contours_from_rois(filenames, show_progress = False):
+  """Extract contours from ImageJ ROIs or ROI sets.
+
+  Parameters:
+    - filenames: a list of names of ROIs or ROI sets.
+    - show_progress: display a simple progress bar during this process.
+
+  Reurns, for each ROI or ROI set, a list of the contours found within. (Thus a
+  list of lists is returned.)
+  """
+  import ijroi
+  if show_progress:
+    filenames = progress_list(filenames, 'Extracting Contours from ROIs')
+  all_contours = []
+  for name in filenames:
+    if name.endswith(".zip"):
+      # read_roi gives points in (y, x) order; flip the columns
+      rois = [roi[:,::-1] for roiname, roi in ijroi.read_roi_zip(name)]
+    else:
+      with open(name, "rb") as f:
+        rois = [ijroi.read_roi(f)[:,::-1]]
+    contours = [contour_class.Contour(points=roi, units='pixels', other={"_filename": name}) for roi in rois]
+    for c in contours:
+      area = c.signed_area()
+      if area > 0:
+        c.reverse_orientation()
+    all_contours.append(contours)
+  return all_contours
+
 def resample_contours(contours, resample_points = 100, smoothing = 0, show_progress = False):
   """Resample a list of contours to have a specific number of evenly-spaced points.
   
